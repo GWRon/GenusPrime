@@ -27,3 +27,39 @@ Compared to my other projects this code in its current base is a bit of a "tight
 
 # Campaigns and missions
 They are written in XML files so it should be able to write your own (despite the game for now is not prepared to "scroll" through a multitude of campaigns as it was not needed yet for the competition itself). A scrolling list isn't that hard to implement (Dig framework ;-)) but without interest of others this is skipped for now. 
+
+
+# Build instructions
+Either build with BlitzMax (legacy/vanilla) or with BlitzMax NG (https://blitzmax.org).
+The game requires a module called "maxmod2.mod" which can be found:
+Vanilla: sources/Dig/external/maxmod2_lite.mod.zip
+NG: https://github.com/bmx-ng/maxmod2.mod
+
+
+# Licence
+================================================================
+Copyright (c) 20019-now Ronny Otto
+
+This software is provided 'as-is'. No warranty is given.
+The authors cannot be held liable for any damages arising from
+the use of this software.
+
+Permission is granted to anyone to use this software for any
+purpose, and to alter it and redistribute it freely, subject to
+the following restrictions:
+
+	1. Any commercial usage requires explicit permission from
+	   the original authors.
+
+	2. The origin of this software must not be misrepresented;
+	   you must not claim that you wrote the original software.
+	   If you use this software in a product, an acknowledgment
+	   in the product is required.
+
+	3. Altered source or binary versions of this software must
+	   be plainly marked as such, and must not be misrepresented
+	   as being the original software.
+
+	4. This notice may not be removed or altered from any source
+	   distribution.
+================================================================
