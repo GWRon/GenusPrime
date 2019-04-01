@@ -1,0 +1,131 @@
+<?xml version="1.0"?>
+<game>
+	<resources>
+		<bitmapfont name="default" url="assets/fonts/CubicFive10_fix.ttf" size="8" default="1" flags="NOSMOOTH" lineHeightModifier="1.4"/>
+		<bitmapfont name="default" url="assets/fonts/CubicFive11_fix.ttf" size="8" default="1" flags="NOSMOOTH, ITALICFONT" lineHeightModifier="1.4" />
+		<bitmapfont name="default" url="assets/fonts/CubicFive12_fix.ttf" size="8" default="1" flags="NOSMOOTH, BOLDFONT" lineHeightModifier="1.4" />
+		<bitmapfont name="small" url="assets/fonts/pzim3x5_fixed.ttf" size="10" flags="NOSMOOTH" fixedCharWidth="4"/>
+		<bitmapfont name="small" url="assets/fonts/pzim3x5b_fixed.ttf" size="10" flags="NOSMOOTH, BOLDFONT" fixedCharWidth="6"/>
+
+		<resource name="gfx_interface">
+			<type>GameSpritePack</type>
+ 			<url>assets/gfx/interface.png</url>
+			<children>
+				<child name="planet.0"         x="0"   y="30"  w="11"  h="11" />
+				<child name="planet.1"         x="12"  y="30"  w="11"  h="11" />
+				<child name="planet.2"         x="24"  y="30"  w="11"  h="11" />
+				<child name="planet.3"         x="36"  y="30"  w="11"  h="11" />
+				<child name="planet.4"         x="48"  y="30"  w="11"  h="11" />
+				<child name="planet.5"         x="60"  y="30"  w="11"  h="11" />
+				<child name="planet.6"         x="72"  y="30"  w="11"  h="11" />
+
+				<child name="toastmessage.normal"  x="0" y="10" w="16" h="10" ninepatch="true" tilemode="1" />
+				<child name="toastmessage.attention"  x="0" y="20" w="16" h="10" ninepatch="true" tilemode="1" />
+
+				<child name="hud.top"              x="0"   y="0"   w="256" h="7" />
+				<child name="hud.bottom"           x="0"   y="192" w="256" h="8"   offsetLeft="0" offsetTop="-192" />
+				<child name="hud.right"            x="256" y="0"   w="65"  h="200" offsetLeft="-255" />
+				<child name="pixelfontsprite.gray"   x="322"   y="185"  w="160"  h="4" />
+				<child name="pixelfontsprite.yellow"  x="322"   y="190"  w="160"  h="4" />
+				<child name="pixelfontsprite"         x="322"   y="195"  w="160"  h="4" />
+				<child name="charts.overlay"    x="16" y="9"  w="21"  h="21" ninepatch="true" tilemode="1" />
+				<child name="charts.bg9p"         x="38" y="9"  w="6"  h="6" ninepatch="true" tilemode="1" />
+				<child name="charts.bg"         x="39" y="10"  w="4"  h="4" />
+				<child name="charts.button.normal"      x="45"  y="9"  w="21"  h="13" />
+				<child name="charts.button.active"      x="66"  y="9"  w="21"  h="13" />
+				<child name="charts.button.hover"       x="87"  y="9"  w="21"  h="13" />
+				<child name="charts.button.disabled"    x="108" y="9"  w="21"  h="13" />
+				<child name="pattern.hlines1"           x="35" y="70"  w="20"  h="20" />
+				<child name="pattern.hlines2"           x="60" y="70"  w="20"  h="20" />
+				<child name="pattern.hlines3"           x="35" y="95"  w="18"  h="20" />
+				<child name="pattern.dots1"             x="35" y="45"  w="20"  h="20" />
+				<child name="pattern.dots2"             x="85" y="45"  w="18"  h="18" />
+				<child name="pattern.diagonal1"         x="60" y="45"  w="18"  h="18" />
+				<child name="gui.icon.arrowDown"        x="28" y="55"  w="7"   h="3" />
+				<child name="gui.input"                 x="0" y="78"  w="14"  h="15" ninepatch="true" tilemode="1" />
+				<child name="gui.input.iconRight"         x="0" y="95"  w="17"  h="15" ninepatch="true" tilemode="1" />
+				<child name="gui.input.iconRight.hover"   x="0" y="110"  w="17"  h="15" ninepatch="true" tilemode="1" />
+				<child name="gui.input.iconRight.active"  x="0" y="110"  w="17"  h="15" ninepatch="true" tilemode="1" />
+				<child name="gui.input.iconRight.background"         x="17" y="95"  w="13"  h="15" ninepatch="true" tilemode="1" />
+				<child name="gui.input.iconRight.background.hover"   x="17" y="110"  w="13"  h="15" ninepatch="true" tilemode="1" />
+				<child name="gui.input.iconRight.background.active"  x="17" y="110"  w="13"  h="15" ninepatch="true" tilemode="1" />
+
+				<child name="gui.input.hover"             x="0" y="78"  w="14"  h="15" ninepatch="true" tilemode="1" />
+				<child name="gui.input.active"            x="14" y="78"  w="14"  h="15" ninepatch="true" tilemode="1" />
+				<child name="gui.button.small"            x="0" y="47"  w="14"  h="15" ninepatch="true" tilemode="1" />
+				<child name="gui.button.small.hover"      x="0" y="47"  w="14"  h="15" ninepatch="true" tilemode="1" />
+				<child name="gui.button.small.active"     x="0" y="47"  w="14"  h="15" ninepatch="true" tilemode="1" />
+				<child name="gui.button.small.disabled"   x="14" y="47"  w="14"  h="15" ninepatch="true" tilemode="1" />
+				<child name="gui.checkbox.sign"           x="29" y="48"  w="5"  h="6" offsetLeft="1" />
+				<child name="gui.slider.gauge"            x="0"  y="64"  w="11" h="7" ninepatch="true" tilemode="1" />
+				<child name="gui.slider.gauge.filled"     x="0"  y="71"  w="11" h="7" ninepatch="true" tilemode="1" />
+				<child name="gui.slider.handle"           x="11"  y="64"  w="10" h="10" ninepatch="true" tilemode="1" />
+				<child name="gui.slider.handle.active"    x="21"  y="64"  w="10" h="10" ninepatch="true" tilemode="1" />
+				<child name="messagewindow.bg"        x="322" y="0"  w="58"  h="38" ninepatch="true" tilemode="1" />
+				<child name="messagewindow.big.bg"    x="129" y="10"  w="58"  h="48" ninepatch="true" tilemode="1" />
+				<child name="bar.research"      x="322" y="80"  w="3"  h="7" />
+				<child name="bar.domination"    x="326" y="80"  w="3"  h="7" />
+				<child name="bar.research1"      x="330" y="80"  w="3"  h="7" />
+				<child name="bar.research2"      x="334" y="80"  w="3"  h="7" />
+				<child name="bar.researchSmall"  x="338" y="80"  w="3"  h="4" />
+				<child name="bar.researchWarnSmall"  x="338" y="84"  w="3"  h="4" />
+				<child name="icon.heart"             x="322" y="68"  w="7"  h="6" />
+				<child name="icon.researchpoints"    x="330" y="68"  w="7"  h="6" />
+				<child name="icon.rocket"            x="338" y="68"  w="10"  h="5" />
+				<child name="icon.plus"              x="349" y="68"  w="7"  h="7" />
+				<child name="icon.refill"            x="322" y="155"  w="6"  h="7" />
+				<child name="slider.top"             x="322" y="52"  w="55"  h="15" />
+				<child name="slider.door.left"       x="322" y="40"  w="26"  h="11" />
+				<child name="slider.door.right"      x="349" y="40"  w="26"  h="11" />
+				<child name="slot.bg"                x="382" y="54"  w="32"  h="12" />
+				<child name="slot.slider"            x="322" y="40"  w="26"  h="11" />
+				<child name="button.missileup.normal"    x="357" y="68"  w="15"  h="12" />
+				<child name="button.missileup.hover"     x="373" y="68"  w="15"  h="12" />
+				<child name="button.missileup.disabled"  x="389" y="68"  w="15"  h="12" />
+				<child name="button.missileup.max"       x="405" y="68"  w="15"  h="12" />
+				<child name="button.upgrade.normal"  x="381" y="0"  w="40"  h="17" />
+				<child name="button.upgrade.hover"   x="381" y="18"  w="40"  h="17" />
+				<child name="button.upgrade.down"    x="381" y="36"  w="40"  h="17" />
+				<child name="button"           x="322" y="88"  w="42"  h="19" ninepatch="true" tilemode="1" />
+				<child name="button.hover"     x="364" y="88"  w="42"  h="19" ninepatch="true" tilemode="1" />
+				<child name="button.active"    x="322" y="107"  w="42"  h="19" ninepatch="true" tilemode="1" />
+				<child name="button.disabled"  x="364" y="107"  w="42"  h="19" ninepatch="true" tilemode="1" />
+				<child name="menu.pause.active"      x="322" y="127"  w="7"  h="8" />
+				<child name="menu.pause.normal"      x="322" y="136"  w="7"  h="8" />
+				<child name="menu.pause.hover"       x="322" y="145"  w="7"  h="8" />
+				<child name="menu.speed1.active"      x="330" y="127"  w="5"  h="8" />
+				<child name="menu.speed1.normal"      x="330" y="136"  w="5"  h="8" />
+				<child name="menu.speed1.hover"       x="330" y="145"  w="5"  h="8" />
+				<child name="menu.speed2.active"      x="336" y="127"  w="8"  h="8" />
+				<child name="menu.speed2.normal"      x="336" y="136"  w="8"  h="8" />
+				<child name="menu.speed2.hover"       x="336" y="145"  w="8"  h="8" />
+				<child name="menu.speed3.active"      x="345" y="127"  w="11"  h="8" />
+				<child name="menu.speed3.normal"      x="345" y="136"  w="11"  h="8" />
+				<child name="menu.speed3.hover"       x="345" y="145"  w="11"  h="8" />
+				<child name="menu.esc.active"        x="357" y="127"  w="15"  h="8" />
+				<child name="menu.esc.normal"        x="357" y="136"  w="15"  h="8" />
+				<child name="menu.esc.hover"        x="357" y="145"  w="15"  h="8" />
+
+				<child name="characterframe.overlay"  x="374" y="127"  w="51"  h="52" />
+				<child name="characterframe.overlayNoShadow"  x="374" y="127"  w="50"  h="51" />
+				<child name="characterframe.1"        x="427" y="0"    w="42"  h="45" offsetLeft="-4" offsetTop="-4" />
+				<child name="characterframe.2"        x="470" y="0"    w="42"  h="45" offsetLeft="-4" offsetTop="-4" />
+				<child name="characterframe.3"        x="427" y="46"   w="42"  h="45" offsetLeft="-4" offsetTop="-4" />
+				<child name="characterframe.4"        x="470" y="46"   w="42"  h="45" offsetLeft="-4" offsetTop="-4" />
+				<child name="characterframe.5"        x="427" y="92"   w="42"  h="45" offsetLeft="-4" offsetTop="-4" />
+				<child name="characterframe.6"        x="470" y="92"   w="42"  h="45" offsetLeft="-4" offsetTop="-4" />
+				<child name="characterframe.unknown2" x="427" y="138"  w="42"  h="45" offsetLeft="-4" offsetTop="-4" />
+				<child name="characterframe.unknown"  x="470" y="138"  w="42"  h="45" offsetLeft="-4" offsetTop="-4" />
+
+			</children>
+		</resource>
+
+		<sfx name="sfx_ship_start" url="assets/sfx/ship_start.ogg" playlists="ship_start" />
+		<sfx name="sfx_planet_won" url="assets/sfx/planet_won.ogg" playlists="planet_won" />
+		<sfx name="sfx_planet_lost" url="assets/sfx/planet_lost.ogg" playlists="planet_lost" />
+
+		<music name="music_main1" url="assets/music/Bit Quest.ogg" playlists="menu" />
+		<music name="music_main2" url="assets/music/EricSkiff_ResistorAnthemsII_15_Prologue.ogg" playlists="default" />
+		<music name="music_main3" url="assets/music/EricSkiff_ResistorAnthemsII_16_WeAreAllUnderTheStars.ogg" playlists="default" />
+	</resources>
+</game>

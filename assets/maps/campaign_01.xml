@@ -1,0 +1,140 @@
+<?xml version="1.0"?>
+<campaigns>
+	<campaign id="campaign_01">
+		<title>
+			<en>A Beginners Guide to rule</en>
+		</title>
+		<description>
+			<en>Your first campaign will give a paced start into becoming the Genus Prime of all galaxies.</en>
+		</description>
+
+		<!--
+			1 = "Credtopus"
+			2 = "Aquaxian"
+			3 = "Blyshyn"
+			4 = "Pinkz'ac"
+			5 = "Yobots"
+			6 = "Orantex"
+			7 = "Unknown" / Rebels
+		-->
+
+		<map id="campaign_01-map_01">
+			<title>
+				<en>The Ran'thu War</en>
+			</title>
+
+			<events>
+				<event type="message" game_time="0.5">
+					<title>
+						<en>Introduction 1/2</en>
+					</title>
+					<text>
+						<en>You are holding the reigns of your race in this sector of the never-ending space.
+To conquer this sector you need to |color=7|send ships|/color| from your planets to non-occupied (gray) or enemy planets (other colors).
+Just select one or more planets with your mouse by holding the |color=7|ctrl key|/color| or use a mouse-based selection rectangle by |color=7|holding down left mouse button|/color|. After selecting just send out |color=7|half of the planet's population|/color| to the planet you click on. Once population counter goes |color=7|below 0|/color| you will conquer the planet. Deselect with |color=7|right|/color| |color=7|click|/color|.
+Conquer all planets occupied by other players to win the mission.</en>
+					</text>
+				</event>
+
+				<event type="message" game_time="0.501">
+					<title>
+						<en>Introduction 2/2</en>
+					</title>
+					<text>
+						<en>The right side of the interface contains information about the selected planets.
+Each planet has 3 interesting properties: |color=10|Population|/color|, collectable |color=14|Research Points|/color| and |color=13|Missiles|/color|. Next to the missiles you can use a button to |color=7|upgrade missile limit|/color| for 1 research point (RP).
+Research points are collected frequently from all planets under your control.
+
+The |color=7|Upgrade Button|/color| connects you to the |color=7|Knowledge|/color| |color=7|Hub|/color| which allows to spend your collected RP for new researches.
+						</en>
+					</text>
+				</event>
+			</events>
+
+			<!-- random_seed defines position of the random planets -->
+			<config win_condition="win" time="900" width_relative="100" height_relative="100" rebels_allowed="0" galaxy_name="Ran'xil Galaxy" random_seed="11515"/>
+			<players>
+				<player id="1" race="1" control="human" />
+				<player id="2" race="3" control="AI"    difficulty="50" />
+			</players>
+			<planets>
+				<planet  x="15"   y="20"  owner="1" population="10" missiles="0"  missilesLimit="2"  name="Ran'thu" />
+				<planet  x="45"   y="19"  owner="1" population="3"  missiles="0"  missilesLimit="2" />
+				<planet  x="20"   y="50"  owner="1" population="5"  missiles="0"  missilesLimit="2" />
+				<planet x2="10"  y2="20"  owner="2" population="7"  missiles="0"  missilesLimit="2" />
+
+				<!-- RANDOM after fixed ones - so algorithm finds correct spots -->
+				<planet owner="0" />
+				<planet owner="0" />
+				<planet owner="0" />
+				<planet owner="0" />
+				<planet owner="0" />
+				<planet owner="0" />
+			</planets>
+		</map>
+
+
+		<map id="campaign_01-map_02">
+			<title>
+				<en>Attack those Blyshyns</en>
+			</title>
+
+			<!-- random_seed defines position of the random planets -->
+			<config win_condition="win" time="600" width_relative="100" height_relative="100" galaxy_name="Ran'xil Galaxy" random_seed="11515"/>
+			<players>
+				<player id="1" race="1" control="human" />
+				<player id="2" race="3" control="AI"    difficulty="75" />
+			</players>
+			<planets>
+				<planet  x="15"   y="20"  owner="1" population="10" missiles="0"  missilesLimit="2"  />
+				<planet  x="75"   y="35"  owner="1" population="3"  missiles="0"  missilesLimit="2" />
+				<planet x2="40"  y2="80"  owner="2" population="3"  missiles="2"  missilesLimit="2" />
+				<planet x2="70"  y2="20"  owner="2" population="3"  missiles="0"  missilesLimit="1" />
+
+				<!-- RANDOM after fixed ones - so algorithm finds correct spots -->
+				<planet owner="0" />
+				<planet owner="0" />
+				<planet owner="0" />
+				<planet owner="0" />
+				<planet owner="0" />
+				<planet owner="0" />
+			</planets>
+		</map>
+
+
+
+		<map id="campaign_01-map_03">
+			<title>
+				<en>New Encounters</en>
+			</title>
+
+
+			<!-- random_seed defines position of the random planets -->
+			<config win_condition="win" time="-1" width_relative="140" height_relative="140" galaxy_name="Ran'xil Galaxy" random_seed="11515"/>
+			<players>
+				<player id="1" race="1" control="human" />
+				<player id="2" race="3" control="AI"    difficulty="75" />
+				<player id="3" race="5" control="AI"    difficulty="100" />
+			</players>
+			<planets>
+				<planet  x="15"   y="20"  owner="1" population="10" missiles="0"  missilesLimit="2"  />
+				<planet  x="75"   y="35"  owner="1" population="3"  missiles="0"  missilesLimit="2" />
+				<planet x2="40"   y="10"  owner="2" population="3"  missiles="2"  missilesLimit="2" />
+				<planet x2="50"   y="40"  owner="2" population="3"  missiles="0"  missilesLimit="1" />
+				<planet x2="20"   y="50"  owner="2" population="2"  missiles="0"  missilesLimit="3" />
+				<planet  x="90"   y="75"  owner="3" population="8"  missiles="3"  missilesLimit="3" />
+				<planet  x="52"   y="90"  owner="3" population="3"  missiles="3"  missilesLimit="3" />
+
+				<!-- RANDOM after fixed ones - so algorithm finds correct spots -->
+				<planet owner="0" />
+				<planet owner="0" />
+				<planet owner="0" />
+				<planet owner="0" />
+				<planet owner="0" />
+				<planet owner="0" />
+				<planet owner="0" />
+				<planet owner="0" />
+			</planets>
+		</map>
+	</campaign>
+</campaigns>

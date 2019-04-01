@@ -1,0 +1,390 @@
+<?xml version="1.0"?>
+<campaigns>
+	<campaign id="campaign_02">
+		<title>
+			<en>Galaxies at war</en>
+		</title>
+		<description>
+			<en>Your second campaign now cuts the ties unvailing all the nasty stuff your enemies throw into the ring.</en>
+		</description>
+
+		<!--
+			1 = "Credtopus"
+			2 = "Aquaxian"
+			3 = "Blyshyn"
+			4 = "Pinkz'ac"
+			5 = "Yobots"
+			6 = "Orantex"
+			7 = "Unknown" / Rebels
+		-->
+
+		<map id="campaign_02-map_01">
+			<title>
+				<en>Don't shed tears</en>
+			</title>
+			<description>
+				<en>Your first serious encounter with the Aquaxian.</en>
+			</description>
+
+			<events>
+				<event type="support" game_time="30" notify_enabled="1" notify_delay="0" player="2" amount="60" >
+					<title>
+						<en>Support</en>
+					</title>
+					<text>
+						<en>Support for Aquaxian incoming.</en>
+					</text>
+				</event>
+
+				<event type="support" game_time="90" notify_enabled="1" notify_delay="0" player="2" amount="40" >
+					<title>
+						<en>Support</en>
+					</title>
+					<text>
+						<en>Support for Aquaxian incoming.</en>
+					</text>
+				</event>
+
+				<event type="support" game_time="120" notify_enabled="1" notify_delay="0" player="2" amount="50" >
+					<title>
+						<en>Support</en>
+					</title>
+					<text>
+						<en>Support for Aquaxian incoming.</en>
+					</text>
+				</event>
+			</events>
+
+
+			<!-- random_seed defines position of the random planets -->
+			<config win_condition="win" time="900" width_relative="100" height_relative="100" galaxy_name="Xandaha Cloud" random_seed="11234"/>
+			<players>
+				<player id="1" race="1" control="human" />
+				<player id="2" race="2" control="AI"    difficulty="100" />
+			</players>
+			<planets>
+				<planet                   owner="1" population="12" missiles="0"  missilesLimit="0" />
+				<planet                   owner="2" population="5"  missiles="0"  missilesLimit="3" />
+				<planet                   owner="2" population="7"  missiles="0"  missilesLimit="3" />
+
+				<!-- RANDOM after fixed ones - so algorithm finds correct spots -->
+				<planet owner="0" />
+				<planet owner="0" />
+				<planet owner="0" />
+				<planet owner="0" />
+				<planet owner="0" />
+				<planet owner="0" />
+				<planet owner="0" />
+			</planets>
+		</map>
+
+		<map id="campaign_02-map_02">
+			<title>
+				<en>Protests uprising</en>
+			</title>
+			<description>
+				<en>Your fight against the Aquaxian is not unseen. Pinkz'ac join the battle.</en>
+			</description>
+
+			<events>
+				<event type="rebellion" game_time="60" notify_enabled="1" notify_delay="-15">
+					<title>
+						<en>Rebels ahead</en>
+					</title>
+					<text>
+						<en>Rebels might take over planets soon.</en>
+					</text>
+				</event>
+			</events>
+
+			<!-- random_seed defines position of the random planets -->
+			<config win_condition="win" time="900" width_relative="175" height_relative="100" galaxy_name="Xandaha Cloud" random_seed="11234"/>
+			<players>
+				<player id="1" race="1" control="human" />
+				<player id="2" race="2" control="AI"    difficulty="100" />
+				<player id="3" race="4" control="AI"    difficulty="100" />
+			</players>
+			<planets>
+				<planet                   owner="1" population="11" missiles="0"  missilesLimit="0" />
+				<planet                   owner="1" population="3"  missiles="0"  missilesLimit="0" />
+				<planet                   owner="2" population="5"  missiles="0"  missilesLimit="1" />
+				<planet                   owner="2" population="7"  missiles="0"  missilesLimit="1" />
+				<planet                   owner="3" population="5"  missiles="0"  missilesLimit="3" />
+				<planet                   owner="3" population="7"  missiles="0"  missilesLimit="3" />
+
+				<!-- RANDOM after fixed ones - so algorithm finds correct spots -->
+				<planet owner="0" population="14" />
+				<planet owner="0" population="16" />
+				<planet owner="0" population="13" />
+				<planet owner="0" />
+				<planet owner="0" />
+				<planet owner="0" />
+				<planet owner="0" />
+				<planet owner="0" />
+				<planet owner="0" />
+				<planet owner="0" />
+			</planets>
+		</map>
+
+		<map id="campaign_02-map_03">
+			<title>
+				<en>Throw in what you have!</en>
+			</title>
+			<description>
+				<en>The Battle against the Aquaxian and Pinkz'ac reaches its climax.</en>
+			</description>
+
+			<events>
+				<event type="support" game_time="30" notify_enabled="1" notify_delay="0" player="3" amount="60" >
+					<title>
+						<en>Support</en>
+					</title>
+					<text>
+						<en>Support for Aquaxian incoming.</en>
+					</text>
+				</event>
+
+				<event type="support" game_time="45" notify_enabled="1" notify_delay="0" player="2" amount="70" >
+					<title>
+						<en>Support</en>
+					</title>
+					<text>
+						<en>Support for Pinkz'ac incoming.</en>
+					</text>
+				</event>
+
+				<event type="support" game_time="150" notify_enabled="1" notify_delay="0" player="3" amount="90" >
+					<title>
+						<en>Support</en>
+					</title>
+					<text>
+						<en>Support for Aquaxian incoming.</en>
+					</text>
+				</event>
+			</events>
+
+			<events>
+				<event type="support" game_time="150" notify_enabled="1" notify_delay="0" player="2" amount="100" >
+					<title>
+						<en>Support</en>
+					</title>
+					<text>
+						<en>Support for Pinkz'ac incoming.</en>
+					</text>
+				</event>
+			</events>
+
+			<!-- random_seed defines position of the random planets -->
+			<config win_condition="win" time="900" width_relative="150" height_relative="150" galaxy_name="Xandaha Cloud" random_seed="11234"/>
+			<players>
+				<player id="1" race="1" control="human" />
+				<player id="2" race="2" control="AI"    difficulty="100" />
+				<player id="3" race="4" control="AI"    difficulty="100" />
+			</players>
+			<planets>
+				<planet                   owner="1" population="15" missiles="0"  missilesLimit="2" />
+				<planet                   owner="2" population="10" missiles="0"  missilesLimit="1" />
+				<planet                   owner="2" population="3"  missiles="0"  missilesLimit="1" />
+				<planet                   owner="2" population="4"  missiles="0"  missilesLimit="1" />
+				<planet                   owner="3" population="9"  missiles="0"  missilesLimit="3" />
+				<planet                   owner="3" population="2"  missiles="0"  missilesLimit="3" />
+
+				<!-- RANDOM after fixed ones - so algorithm finds correct spots -->
+				<planet owner="0" population="22" />
+				<planet owner="0" population="27" />
+				<planet owner="0" population="23" />
+				<planet owner="0" />
+				<planet owner="0" />
+				<planet owner="0" />
+				<planet owner="0" />
+				<planet owner="0" />
+				<planet owner="0" />
+				<planet owner="0" />
+				<planet owner="0" />
+				<planet owner="0" />
+			</planets>
+		</map>
+
+
+		<map id="campaign_02-map_04">
+			<title>
+				<en>Pinkz'ac to go</en>
+			</title>
+			<description>
+				<en>After finishing those Aquaxian only the Pinkz'ac are left.</en>
+			</description>
+
+
+			<events>
+				<event type="rebellion" game_time="60" notify_enabled="1" notify_delay="-15">
+					<title>
+						<en>Rebels ahead</en>
+					</title>
+					<text>
+						<en>Rebels might take over planets soon.</en>
+					</text>
+				</event>
+
+				<event type="support" game_time="30" notify_enabled="1" notify_delay="0.1" player="2" amount="60" >
+					<title>
+						<en>Support</en>
+					</title>
+					<text>
+						<en>Support for Pinkz'ac incoming.</en>
+					</text>
+				</event>
+			</events>
+
+
+			<!-- random_seed defines position of the random planets -->
+			<config win_condition="win" time="900" width_relative="130" height_relative="150" galaxy_name="Xandaha Cloud" random_seed="11234"/>
+			<players>
+				<player id="1" race="1" control="human" />
+				<player id="2" race="4" control="AI"    difficulty="125" />
+			</players>
+			<planets>
+				<planet                   owner="1" population="20" missiles="0"  missilesLimit="0" />
+				<planet                   owner="1" population="2"  missiles="0"  missilesLimit="4" />
+				<planet                   owner="2" population="15"  missiles="0"  missilesLimit="3" />
+				<planet                   owner="2" population="7"  missiles="0"  missilesLimit="3" />
+				<planet                   owner="2" population="2"  missiles="5"  missilesLimit="10" />
+
+				<!-- RANDOM after fixed ones - so algorithm finds correct spots -->
+				<planet owner="0" population="12" />
+				<planet owner="0" population="13" />
+				<planet owner="0" />
+				<planet owner="0" />
+				<planet owner="0" />
+				<planet owner="0" />
+				<planet owner="0" />
+				<planet owner="0" />
+				<planet owner="0" />
+			</planets>
+		</map>
+
+
+		<map id="campaign_02-map_05">
+			<title>
+				<en>Metal heads of the junkyard</en>
+			</title>
+			<description>
+				<en>Right before finishing those Pinkz'ac the race of the Yobots joins.</en>
+			</description>
+
+
+			<events>
+				<event type="rebellion" game_time="60" notify_enabled="1" notify_delay="-15">
+					<title>
+						<en>Rebels ahead</en>
+					</title>
+					<text>
+						<en>Rebels might take over planets soon.</en>
+					</text>
+				</event>
+
+				<event type="support" game_time="60" notify_enabled="1" notify_delay="0.1" player="2" amount="30" >
+					<title>
+						<en>Support</en>
+					</title>
+					<text>
+						<en>Support for Pinkz'ac incoming.</en>
+					</text>
+				</event>
+			</events>
+
+
+			<!-- random_seed defines position of the random planets -->
+			<config win_condition="win" time="900" width_relative="130" height_relative="150" galaxy_name="Xandaha Cloud" random_seed="11234"/>
+			<players>
+				<player id="1" race="1" control="human" />
+				<player id="2" race="4" control="AI"    difficulty="125" />
+				<player id="3" race="5" control="AI"    difficulty="100" />
+			</players>
+			<planets>
+				<planet                   owner="1" population="15" missiles="0"  missilesLimit="0" />
+				<planet                   owner="1" population="2"  missiles="0"  missilesLimit="4" />
+				<planet                   owner="2" population="15"  missiles="0"  missilesLimit="3" />
+				<planet                   owner="2" population="7"  missiles="0"  missilesLimit="3" />
+				<planet                   owner="3" population="10"  missiles="5"  missilesLimit="10" />
+
+				<!-- RANDOM after fixed ones - so algorithm finds correct spots -->
+				<planet owner="0" population="12" />
+				<planet owner="0" population="11" />
+				<planet owner="0" />
+				<planet owner="0" />
+				<planet owner="0" />
+				<planet owner="0" />
+				<planet owner="0" />
+				<planet owner="0" />
+				<planet owner="0" />
+			</planets>
+		</map>
+
+
+		<map id="campaign_02-map_06">
+			<title>
+				<en>Final Frontier</en>
+			</title>
+			<description>
+				<en>It's time to become Genus Prime.</en>
+			</description>
+
+
+			<events>
+				<event type="rebellion" game_time="200" notify_enabled="1" notify_delay="-15">
+					<title>
+						<en>Rebels ahead</en>
+					</title>
+					<text>
+						<en>Rebels might take over planets soon.</en>
+					</text>
+				</event>
+
+				<event type="support" game_time="90" notify_enabled="1" notify_delay="0.1" player="2" amount="80" >
+					<title>
+						<en>Support</en>
+					</title>
+					<text>
+						<en>Support for Pinkz'ac incoming.</en>
+					</text>
+				</event>
+
+				<event type="support" game_time="120" notify_enabled="1" notify_delay="0.1" player="3" amount="40" >
+					<title>
+						<en>Support</en>
+					</title>
+					<text>
+						<en>Support for Yobots incoming.</en>
+					</text>
+				</event>
+			</events>
+
+
+			<!-- random_seed defines position of the random planets -->
+			<config win_condition="win" time="900" width_relative="130" height_relative="150" galaxy_name="Xandaha Cloud" random_seed="11234"/>
+			<players>
+				<player id="1" race="1" control="human" />
+				<player id="2" race="4" control="AI"    difficulty="125" />
+				<player id="3" race="5" control="AI"    difficulty="125" />
+			</players>
+			<planets>
+				<planet                   owner="1" population="20" missiles="0"  missilesLimit="0" />
+				<planet                   owner="2" population="13"  missiles="0"  missilesLimit="3" />
+				<planet                   owner="2" population="7"  missiles="0"  missilesLimit="5" />
+				<planet                   owner="3" population="11"  missiles="2"  missilesLimit="8" />
+				<planet                   owner="3" population="2"  missiles="5"  missilesLimit="10" />
+
+				<!-- RANDOM after fixed ones - so algorithm finds correct spots -->
+				<planet owner="0" population="22" />
+				<planet owner="0" population="13" />
+				<planet owner="0" />
+				<planet owner="0" />
+				<planet owner="0" />
+				<planet owner="0" />
+				<planet owner="0" />
+				<planet owner="0" />
+				<planet owner="0" />
+			</planets>
+		</map>
+	</campaign>
+</campaigns>
