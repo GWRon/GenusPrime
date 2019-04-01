@@ -14,8 +14,8 @@ Conquer space within the provided campaigns or play a skirmish or random game ag
 
 # Technics
 While the competition at syntaxbomb.com was called "8-BIT WARS" and the allowed systems were C64 and the likes there was no strict rule for resolution - just the palette was fixed.
-So this game uses the C64 palette and a 320x20 resolution and no serious restrictions on the "8x8 blocks" colorwise (kind of IFLI, NUFLI or AFLI mode).
-Also there is no sound emulation done - just a bunch of "retro sounds".
+So this game uses the C64 palette and a 320x200 resolution and no serious restrictions on the "8x8 blocks" colorwise (imagine kind of a mix between IFLI, NUFLI or AFLI mode).
+Also there is no sound emulation done - just a bunch of "retro sounds" + nice music by Kevin McLeod and Eric Skiff.
 
 Compared to classic C64 games this game does not offer a gamepad/joystick control but a mouse one (there existed a more or less rarely used C64 mouse!). So this game was able to be easily done in a GUI centric way.
 
