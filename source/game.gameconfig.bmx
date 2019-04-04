@@ -10,6 +10,7 @@ Type TGameConfig
 	Field playerProfile:TPlayerProfile
 	Field screenWidth:int
 	Field screenHeight:int
+	Field soundEngine:string
 	Field renderer:int
 	Field fullscreen:int
 	Field volumeSFX:int
@@ -57,6 +58,7 @@ Type TGameConfig
 		screenWidth = data.GetInt("screen_width")
 		screenHeight = data.GetInt("screen_height")
 		renderer = data.GetInt("renderer")
+		soundEngine = data.GetString("sound_engine", "AUTOMATIC")
 
 		return self
 	End Method
@@ -72,6 +74,7 @@ Type TGameConfig
 		result.AddString("screen_height", screenHeight)
 		result.AddString("fullscreen", fullscreen)
 		result.AddString("renderer", renderer)
+		result.AddString("sound_engine", soundEngine)
 
 		return result
 	End Method

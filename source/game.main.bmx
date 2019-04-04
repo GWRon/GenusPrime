@@ -31,7 +31,6 @@ Type TMyApp Extends TGraphicalApp
 
 		Local gm:TGraphicsManager = GetGraphicsManager()
 		gm.SetDesignedResolution(designedW, designedH)
-
 		ApplyConfig()
 		ApplySoundSettings()
 
@@ -54,21 +53,37 @@ Type TMyApp Extends TGraphicalApp
 
 
 	Method ApplySoundSettings()
+		if GameConfig.soundEngine.ToLower() = "none"
+			TSoundManager.audioEngineEnabled = False
+			GetSoundManager()
+			TSoundManager.audioEngineEnabled = True
+			GetSoundManager().MuteMusic(true)
+			GetSoundManager().MuteSfx(true)
+			TSoundManager.audioEngineEnabled = False
+		else
+			TSoundManager.audioEngineEnabled = true
+			if TSoundManager.SetAudioEngine(GameConfig.soundEngine.ToUpper())
+				TSoundManager.InitAudioEngine()
+			endif
+		endif
+
 		GetSoundManager().sfxVolume = 0.01 * GameConfig.volumeSFX
-		GetSoundManager().MuteSfx(GameConfig.volumeSFX = 0)
 
 '		GetSoundManager().musicVolume = 0.01 * GameConfig.volumeMusic
 '		GetSoundManager().nextMusicVolume = 0.01 * GameConfig.volumeMusic
 '		GetSoundManager().defaultMusicVolume = 0.01 * GameConfig.volumeMusic
 		GetSoundManager().SetMusicvolume(0.01 * GameConfig.volumeMusic)
 
-		GetSoundManager().MuteMusic(GameConfig.volumeMusic = 0)
+		if TSoundManager.audioEngineEnabled
+			GetSoundManager().MuteSfx(GameConfig.volumeSFX = 0)
+			GetSoundManager().MuteMusic(GameConfig.volumeMusic = 0)
 
 
-		if not TSoundManager.GetInstance().HasMutedMusic()
-			'if no music is played yet, try to get one from the "menu"-playlist
-			If Not GetSoundManager().isPlaying()
-				GetSoundManager().PlayMusicPlaylist("default")
+			if not TSoundManager.GetInstance().HasMutedMusic()
+				'if no music is played yet, try to get one from the "menu"-playlist
+				If Not GetSoundManager().isPlaying()
+					GetSoundManager().PlayMusicPlaylist("default")
+				endif
 			endif
 		endif
 	End Method

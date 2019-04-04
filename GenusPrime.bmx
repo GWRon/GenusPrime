@@ -5502,6 +5502,7 @@ Type TMessageWindow_Settings Extends TMessageWindow
 	Field checkboxFullscreen:TGameGUICheckBox
 	Field sliderSFXVolume:TGameGUISlider
 	Field sliderMusicVolume:TGameGUISlider
+	Field dropdownSoundEngine:TGameGUIDropDown
 	Field inputResolutionX:TGameGUIInput
 	Field inputResolutionY:TGameGUIInput
 	Field buttonPreset1:TGameGUIButton
@@ -5522,26 +5523,52 @@ Type TMessageWindow_Settings Extends TMessageWindow
 
 		caption = "Settings"
 
-		container = New TGUIPanel.Create(New TVec2D.Init(startX, startY+0*10), New TVec2D.Init(300, 300), lsGUIkey.ToString())
+		container = New TGUIPanel.Create(New TVec2D.Init(startX, startY+0*5), New TVec2D.Init(300, 300), lsGUIkey.ToString())
 
-		sliderSFXVolume = New TGameGUISlider.Create(New TVec2D.Init(55, startY+0*10), New TVec2D.Init(50,10), "10") ', lsGUIkey.ToString())
+		sliderSFXVolume = New TGameGUISlider.Create(New TVec2D.Init(55, startY+0*5), New TVec2D.Init(50,10), "10") ', lsGUIkey.ToString())
 		sliderSFXVolume.SetValueRange(0, 100)
 		container.AddChild(sliderSFXVolume)
 
-		sliderMusicVolume = New TGameGUISlider.Create(New TVec2D.Init(55, startY+2*10), New TVec2D.Init(50,10), "10") ', lsGUIkey.ToString())
+		sliderMusicVolume = New TGameGUISlider.Create(New TVec2D.Init(55, startY+3*5), New TVec2D.Init(50,10), "10") ', lsGUIkey.ToString())
 		sliderMusicVolume.SetValueRange(0, 100)
 		container.AddChild(sliderMusicVolume)
 
+		dropdownSoundEngine = New TGameGUIDropDown.Create(New TVec2D.Init(55, startY+6*5), New TVec2D.Init(70,15), "", 100) ', lsGUIkey.ToString())
+		dropdownSoundEngine.SetListContentHeight(5 * 10)
+		Local soundEngineValues:String[] = ["AUTOMATIC", "NONE"]
+		Local soundEngineTexts:String[] = ["Auto", "- None -"]
+		?Win32
+			soundEngineValues :+ ["WINDOWS_ASIO","WINDOWS_DS"]
+			soundEngineTexts :+ ["ASIO", "Direct Sound"]
+		?Linux
+			soundEngineValues :+ ["LINUX_ALSA","LINUX_PULSE","LINUX_OSS"]
+			soundEngineTexts :+ ["ALSA", "PulseAudio", "OSS"]
+		?MacOS
+			soundEngineValues :+ ["MACOSX_CORE"]
+			soundEngineTexts :+ ["CoreAudio"]
+		?
 
-		inputResolutionX = New TGameGUIInput.Create(New TVec2D.Init(55,startY+5*10), New TVec2D.Init(35,14), "640", 4) ', lsGUIkey.ToString())
-		inputResolutionY = New TGameGUIInput.Create(New TVec2D.Init(55 + 47,startY+5*10), New TVec2D.Init(35,14), "400", 4) ', lsGUIkey.ToString())
+		Local itemHeight:Int = 0
+		For Local i:Int = 0 Until soundEngineValues.Length
+			Local item:TGUIDropDownItem = New TGameGUIDropDownItem.Create(Null, Null, soundEngineTexts[i]).SetExtra(soundEngineValues[i])
+			'item.SetValueColor(TColor.CreateGrey(50))
+			item.data.Add("value", soundEngineValues[i])
+			dropdownSoundEngine.AddItem(item)
+		Next
+		dropdownSoundEngine.SetListContentHeight(10 * Len(soundEngineValues))
+		dropdownSoundEngine.SetSelectedEntryByPos( 0 )
+		container.AddChild(dropdownSoundEngine)
+
+
+		inputResolutionX = New TGameGUIInput.Create(New TVec2D.Init(55,startY+10*5), New TVec2D.Init(35,14), "640", 4) ', lsGUIkey.ToString())
+		inputResolutionY = New TGameGUIInput.Create(New TVec2D.Init(55 + 47,startY+10*5), New TVec2D.Init(35,14), "400", 4) ', lsGUIkey.ToString())
 		container.AddChild(inputResolutionX)
 		container.AddChild(inputResolutionY)
 
-		buttonPreset1 = New TGameGUIButton.Create(New TVec2D.Init(55, startY+7*10 -4 ), New TVec2D.Init(19,14), "x1") ', lsGUIkey.ToString())
-		buttonPreset2 = New TGameGUIButton.Create(New TVec2D.Init(55 + 21 , startY+7*10 -4), New TVec2D.Init(19,14), "x2") ', lsGUIkey.ToString())
-		buttonPreset3 = New TGameGUIButton.Create(New TVec2D.Init(55 + 42, startY+7*10 -4), New TVec2D.Init(19,14), "x3") ', lsGUIkey.ToString())
-		buttonPreset4 = New TGameGUIButton.Create(New TVec2D.Init(55 + 63, startY+7*10 -4), New TVec2D.Init(19,14), "x4") ', lsGUIkey.ToString())
+		buttonPreset1 = New TGameGUIButton.Create(New TVec2D.Init(55, startY+14*5 -4 ), New TVec2D.Init(19,14), "x1") ', lsGUIkey.ToString())
+		buttonPreset2 = New TGameGUIButton.Create(New TVec2D.Init(55 + 21 , startY+14*5 -4), New TVec2D.Init(19,14), "x2") ', lsGUIkey.ToString())
+		buttonPreset3 = New TGameGUIButton.Create(New TVec2D.Init(55 + 42, startY+14*5 -4), New TVec2D.Init(19,14), "x3") ', lsGUIkey.ToString())
+		buttonPreset4 = New TGameGUIButton.Create(New TVec2D.Init(55 + 63, startY+14*5 -4), New TVec2D.Init(19,14), "x4") ', lsGUIkey.ToString())
 		container.AddChild(buttonPreset1)
 		container.AddChild(buttonPreset2)
 		container.AddChild(buttonPreset3)
@@ -5567,6 +5594,7 @@ Type TMessageWindow_Settings Extends TMessageWindow
 		GuiManager.Remove(buttonPreset3)
 		GuiManager.Remove(buttonPreset4)
 		GuiManager.Remove(buttonDone)
+		GuiManager.Remove(dropdownSoundEngine)
 
 		Return Super.Destroy()
 	End Method
@@ -5587,6 +5615,15 @@ Type TMessageWindow_Settings Extends TMessageWindow
 
 		sliderMusicVolume.SetValue(GameConfig.volumeMusic)
 		sliderSFXVolume.SetValue(GameConfig.volumeSFX)
+
+		local i:int = 0
+		For local entry:TGameGUIDropDownItem = EachIn dropdownSoundEngine.GetEntries()
+			if string(entry.extra).ToLower() = GameConfig.soundEngine.ToLower()
+				dropdownSoundEngine.SetSelectedEntryByPos(i)
+				exit
+			endif
+			i :+ 1
+		Next
 
 		Return Super.Open()
 	End Method
@@ -5628,7 +5665,12 @@ Type TMessageWindow_Settings Extends TMessageWindow
 
 		GameConfig.volumeMusic = sliderMusicVolume.GetValue().ToInt()
 		GameConfig.volumeSFX = sliderSFXVolume.GetValue().ToInt()
-		app.ApplySoundSettings()
+
+		if GameConfig.soundEngine.ToLower() <> string(TGameGUIDropDownItem(dropdownSoundEngine.GetSelectedEntry()).extra).ToLower()
+			GameConfig.soundEngine = string(TGameGUIDropDownItem(dropdownSoundEngine.GetSelectedEntry()).extra)
+			app.ApplySoundSettings()
+		endif
+
 		'TODO: an SoundManager weitergeben
 
 		If buttonPreset1.IsClicked()
@@ -5686,24 +5728,27 @@ Type TMessageWindow_Settings Extends TMessageWindow
 		startX = area.GetIntX() + 12
 
 		Super.Render(offsetX, offsetY)
-		GuiManager.Draw(lsGUIkey)
 
-		GetBitmapFont("small").Draw("SFX Volume:", startX, startY + 0*10 +1)
+		GetBitmapFont("small").Draw("SFX Volume:", startX, startY + 0*5 +1)
 		If Int(sliderSFXVolume.GetValue()) = 0
-			GetBitmapFont("small").Draw("muted", startX + 116, startY + 0*10 +1)
+			GetBitmapFont("small").Draw("muted", startX + 116, startY + 0*5 +1)
 		Else
-			GetBitmapFont("small").Draw(Int(sliderSFXVolume.GetValue())+" %", startX + 116, startY + 0*10 +1)
+			GetBitmapFont("small").Draw(Int(sliderSFXVolume.GetValue())+" %", startX + 116, startY + 0*5 +1)
 		EndIf
 
-		GetBitmapFont("small").Draw("Music Volume:", startX, startY + 2*10 +1)
+		GetBitmapFont("small").Draw("Music Volume:", startX, startY + 3*5 +1)
 		If Int(sliderMusicVolume.GetValue()) = 0
-			GetBitmapFont("small").Draw("muted", startX + 116, startY + 2*10 +1)
+			GetBitmapFont("small").Draw("muted", startX + 116, startY + 3*5 +1)
 		Else
-			GetBitmapFont("small").Draw(Int(sliderMusicVolume.GetValue())+" %", startX + 116, startY + 2*10 +1)
+			GetBitmapFont("small").Draw(Int(sliderMusicVolume.GetValue())+" %", startX + 116, startY + 3*5 +1)
 		EndIf
 
-		GetBitmapFont("small").Draw("Resolution:", startX, startY + 5*10 +3)
-		GetBitmapFont("small").Draw("x", startX + 101, startY + 5*10 +3)
+		GetBitmapFont("small").Draw("Sound Engine:", startX, startY + 6*5 +1)
+
+		GetBitmapFont("small").Draw("Resolution:", startX, startY + 10*5 +3)
+		GetBitmapFont("small").Draw("x", startX + 101, startY + 10*5 +3)
+
+		GuiManager.Draw(lsGUIkey)
 	End Method
 End Type
 

@@ -185,7 +185,7 @@ Type TSoundManager
 
 
 		'initialize sound system
-		InitAudioEngine()
+		if audioEngineEnabled then InitAudioEngine()
 
 
 		manager.musicChannel1 = AllocChannel()
