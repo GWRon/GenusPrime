@@ -19,7 +19,7 @@ Rem
 
 	LICENCE: zlib/libpng
 
-	Copyright (C) 2014 Ronny Otto, digidea.de
+	Copyright (C) 2014-now Ronny Otto, digidea.de
 
 	This software is provided 'as-is', without any express or
 	implied warranty. In no event will the authors be held liable
@@ -251,23 +251,27 @@ Type TDigAudioStream
 	End Method
 
 
+	'returns time left in milliseconds
 	Method GetTimeLeft:Float()
-		Return (samplesCount - GetPosition()) / Float(freq)
+		Return 1000.0 * (samplesCount - GetPosition()) / Float(freq)
 	End Method
 
 
+	'returns milliseconds
 	Method GetTimePlayed:Float()
-		Return GetPosition() / Float(freq)
+		Return 1000.0 * GetPosition() / Float(freq)
 	End Method
 
 
+	'returns milliseconds
 	Method GetTimeBuffered:Float()
-		Return (GetPosition() + GetBufferPosition()) / Float(freq)
+		Return 1000.0 * (GetPosition() + GetBufferPosition()) / Float(freq)
 	End Method
 
 
+	'returns milliseconds
 	Method GetTimeTotal:Int()
-		Return samplesCount / freq
+		Return 1000 * samplesCount / freq
 	End Method
 
 
@@ -475,8 +479,8 @@ Type TDigAudioStreamOgg Extends TDigAudioStream
 		'=== FILL IN DATA ===
 		Local bufAppend:Byte Ptr = Byte Ptr(buffer) + offset*4
 		'try to read the oggfile at the current position
-		Local err:Int = Read_Ogg(ogg, bufAppend, bytes)
-		If err Then Throw "Error streaming from OGG"
+		Local bytesRead:Int = Read_Ogg(ogg, bufAppend, bytes)
+		If bytesRead = 0 Then Throw "Error streaming from OGG. Null bytes read."
 
 		Return True
 	End Method
@@ -484,7 +488,7 @@ Type TDigAudioStreamOgg Extends TDigAudioStream
 
 	'adjusted from brl.mod/oggloader.mod/oggloader.bmx
 	'they are "private" there... so this is needed to expose them
-	Function readfunc:Int( buf:Byte Ptr, size:Int, nmemb:Int, src:Object )
+	Function readfunc:Int(buf:Byte Ptr, size:Int, nmemb:Int, src:Object )
 		Return TStream(src).Read(buf, size * nmemb) / size
 	End Function
 
