@@ -31,7 +31,7 @@ endrem
 
 Incbin "source/version.txt"
 Global VersionDate:String = LoadText("incbin::source/version.txt").Trim()
-Global VersionNumberString:String = "v1.0.1"
+Global VersionNumberString:String = "v1.0.2"
 Global VersionString:String = VersionNumberString + " Build ~q" + VersionDate + "~q"
 Global CopyrightString:String = "by Ronny Otto aka ~qDerron~q"
 
@@ -2232,8 +2232,8 @@ Type TSpace
 
 	Field _shipsAlive:Int[] = New Int[0] '0 = all, 1 = of player 1 ...
 
-	Field deadShips:int[]
-	Field deadMissiles:int[]
+	Field deadShips:int[] = new Int[0]
+	Field deadMissiles:int[] = new Int[0]
 
 	Field planets:TPlanet[]
 	Field missiles:TIntMap = New TIntMap
@@ -2622,13 +2622,13 @@ Type TSpace
 
 	Method RemoveShip:Int(shipID:Int)
 		Local ship:TShip = GetShip(shipID)
-		if ship and not ship.alive then return False
-
-		If ship Then _shipsAlive[ship.ownerID] :- 1
-		_shipsAlive[0] :- 1
+		if ship and ship.alive
+			_shipsAlive[ship.ownerID] :- 1
+			_shipsAlive[0] :- 1
+			ship.alive = False
+		endif
 		
 		deadShips :+ [shipID]
-		if ship then ship.alive = False
 
 		'Return ships.Remove(shipID)
 		Return True
@@ -2679,9 +2679,6 @@ Type TSpace
 		Next
 
 
-		deadShips = new Int[0]
-		deadMissiles = new Int[0]
-
 		For Local missile:TMissile = EachIn missiles.Values()
 			missile.Update()
 		Next
@@ -2698,6 +2695,8 @@ Type TSpace
 		For local id:int = EachIn deadMissiles
 			missiles.Remove(id)
 		Next
+		deadShips = new Int[0]
+		deadMissiles = new Int[0]
 		
 
 		'ACHTUNG: eventuell Updates "randomisieren", damit jeder Planet
@@ -3625,7 +3624,7 @@ Type TSpacecraft
 	Field ownerID:Int
 	Field sourcePlanetID:Int = -1
 	Field targetPlanetID:Int = -1
-	Field alive:int
+	Field alive:int = True
 
 	'to avoid flickering on windows
 	Field lastPosition:TVec2D
