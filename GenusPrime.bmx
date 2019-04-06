@@ -31,7 +31,7 @@ endrem
 
 Incbin "source/version.txt"
 Global VersionDate:String = LoadText("incbin::source/version.txt").Trim()
-Global VersionNumberString:String = "v1.0"
+Global VersionNumberString:String = "v1.0.1"
 Global VersionString:String = VersionNumberString + " Build ~q" + VersionDate + "~q"
 Global CopyrightString:String = "by Ronny Otto aka ~qDerron~q"
 
