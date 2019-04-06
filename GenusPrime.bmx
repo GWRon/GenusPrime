@@ -2232,6 +2232,8 @@ Type TSpace
 
 	Field _shipsAlive:Int[] = New Int[0] '0 = all, 1 = of player 1 ...
 
+	Field deadShips:int[]
+	Field deadMissiles:int[]
 
 	Field planets:TPlanet[]
 	Field missiles:TIntMap = New TIntMap
@@ -2620,10 +2622,16 @@ Type TSpace
 
 	Method RemoveShip:Int(shipID:Int)
 		Local ship:TShip = GetShip(shipID)
+		if ship and not ship.alive then return False
+
 		If ship Then _shipsAlive[ship.ownerID] :- 1
 		_shipsAlive[0] :- 1
+		
+		deadShips :+ [shipID]
+		if ship then ship.alive = False
 
-		Return ships.Remove(shipID)
+		'Return ships.Remove(shipID)
+		Return True
 	End Method
 
 
@@ -2638,7 +2646,13 @@ Type TSpace
 
 
 	Method RemoveMissile:Int(missileID:Int)
-		Return missiles.Remove(missileID)
+		local missile:TMissile = GetMissile(missileID)
+
+		deadMissiles :+ [missileID]
+		if missile then missile.alive = False
+
+		'Return missiles.Remove(missileID)
+		Return True
 	End Method
 
 
@@ -2665,6 +2679,9 @@ Type TSpace
 		Next
 
 
+		deadShips = new Int[0]
+		deadMissiles = new Int[0]
+
 		For Local missile:TMissile = EachIn missiles.Values()
 			missile.Update()
 		Next
@@ -2673,8 +2690,15 @@ Type TSpace
 		For Local ship:TShip = EachIn ships.Values()
 			ship.Update()
 		Next
+		
 
-
+		For local id:int = EachIn deadShips
+			ships.Remove(id)
+		Next
+		For local id:int = EachIn deadMissiles
+			missiles.Remove(id)
+		Next
+		
 
 		'ACHTUNG: eventuell Updates "randomisieren", damit jeder Planet
 		'         mal zuerst dran kommt (angegriffen wird, produziert,...)
@@ -3601,6 +3625,7 @@ Type TSpacecraft
 	Field ownerID:Int
 	Field sourcePlanetID:Int = -1
 	Field targetPlanetID:Int = -1
+	Field alive:int
 
 	'to avoid flickering on windows
 	Field lastPosition:TVec2D
