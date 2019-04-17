@@ -21,6 +21,8 @@ Compared to classic C64 games this game does not offer a gamepad/joystick contro
 
 ![skirmish mode](https://user-images.githubusercontent.com/2625226/55310804-aba83800-5461-11e9-8d0c-4c7295734739.png)
 
+The game avoids using the "alternate color" technique on main elements but for planets and stars I used them. If your display's refresh rate is too low or you dislike the slight flickering just press "c" on your keyboard and it uses the effective RGB color instead of alternating between two palette colors.
+
 
 
 # Coding Style
@@ -35,7 +37,7 @@ They are written in XML files so it should be able to write your own (despite th
 
 # Build instructions
 Either build with BlitzMax (legacy/vanilla) or with BlitzMax NG (https://blitzmax.org).
-The game requires a module called "maxmod2.mod" which can be found:
+Optionally you could set the file "source/Dig/base.sfx.soundmanager.bmx" to use the rtAudio library as audio backend. The game then requires a module called "maxmod2.mod" which can be found:
 
 Vanilla: sources/Dig/external/maxmod2_lite.mod.zip
 

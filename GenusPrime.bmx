@@ -20,15 +20,6 @@ Import "source/game.gametime.bmx"
 'Import "Dig/base.gfx.sprite.bmx"
 
 
-Rem
-	INTER SOLAR SUPPORT
-
-	-> Timer pro Rasse bei der Support durch "Portal" kommt
-	-> Portal benoetigt einen Planeten ("blauer wachsender Kreis drum herum bei Ankunft")
-	-> kann  bei Missionen Zeitdruck "bis dahin geschafft" ausueben
-endrem
-
-
 Incbin "source/version.txt"
 Global VersionDate:String = LoadText("incbin::source/version.txt").Trim()
 Global VersionNumberString:String = "v1.0.4"
