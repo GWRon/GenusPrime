@@ -31,7 +31,7 @@ endrem
 
 Incbin "source/version.txt"
 Global VersionDate:String = LoadText("incbin::source/version.txt").Trim()
-Global VersionNumberString:String = "v1.0.3"
+Global VersionNumberString:String = "v1.0.4"
 Global VersionString:String = VersionNumberString + " Build ~q" + VersionDate + "~q"
 Global CopyrightString:String = "by Ronny Otto aka ~qDerron~q"
 
@@ -3195,7 +3195,7 @@ Type THud
 	Field missileLimit:Int
 	Field selectionTitle:String
 	Field font:TBitmapFont {nosave}
-
+	Field spacePositionOnMouseDown:TVec2D
 
 	Method Reset:Int()
 		minimap = New TMinimap
@@ -3228,8 +3228,23 @@ Type THud
 				If MouseManager.y <= space.screenArea.GetY() + 10 Then space.ScrollView(0, -2)
 				If MouseManager.y >= space.screenArea.GetY2() - 10 And MouseManager.y <= space.screenArea.GetY2() Then space.ScrollView(0, +2)
 			EndIf
-			
-			If MouseManager.IsClicked(3) 'middle mouse button
+
+			 'middle mouse button down? drag the map
+			If MouseManager.IsDown(3) and MouseManager.GetDownTime(3) > 100 
+				if not spacePositionOnMouseDown 
+					spacePositionOnMouseDown = space.viewOffset.Copy()
+				endif
+				'use negated positions as we "drag"
+				local moved:TVec2D = MouseManager.GetHitPosition(3).Copy().AddXY(MouseManager.GetPosition().x * -1, MouseManager.GetPosition().y * -1)
+				space.ScrollViewTo(int(spacePositionOnMouseDown.x + moved.x), int(spacePositionOnMouseDown.y + moved.y))
+			elseif spacePositionOnMouseDown
+				spacePositionOnMouseDown = null
+				'avoid registering as clicked (if mouse moved a bit)
+				if MouseManager.GetHitPosition(3).DistanceTo( MouseManager.GetPosition() ) > 5
+					MouseManager.ResetKey(3)
+				endif
+			'middle mouse button clicked? scroll the map
+			ElseIf MouseManager.IsClicked(3)
 				local scrollBy:TVec2D = new TVec2D
 				'subtract center ("offset")
 				scrollBy.x = MouseManager.currentPos.x - (space.screenarea.GetIntX() + space.screenarea.GetW()/2)
@@ -5607,18 +5622,8 @@ Type TMessageWindow_Settings Extends TMessageWindow
 
 		dropdownSoundEngine = New TGameGUIDropDown.Create(New TVec2D.Init(55, startY+6*5), New TVec2D.Init(70,15), "", 100) ', lsGUIkey.ToString())
 		dropdownSoundEngine.SetListContentHeight(5 * 10)
-		Local soundEngineValues:String[] = ["AUTOMATIC", "NONE"]
-		Local soundEngineTexts:String[] = ["Auto", "- None -"]
-		?Win32
-			soundEngineValues :+ ["WINDOWS_ASIO","WINDOWS_DS"]
-			soundEngineTexts :+ ["ASIO", "Direct Sound"]
-		?Linux
-			soundEngineValues :+ ["LINUX_ALSA","LINUX_PULSE","LINUX_OSS"]
-			soundEngineTexts :+ ["ALSA", "PulseAudio", "OSS"]
-		?MacOS
-			soundEngineValues :+ ["MACOSX_CORE"]
-			soundEngineTexts :+ ["CoreAudio"]
-		?
+		Local soundEngineKeys:String[] = GetSoundManager().GetAudioEngineKeys()
+		Local soundEngineNames:String[] = GetSoundManager().GetAudioEngineNames()
 
 		Local itemHeight:Int = 0
 		For Local i:Int = 0 Until soundEngineKeys.Length
@@ -5737,6 +5742,9 @@ Type TMessageWindow_Settings Extends TMessageWindow
 
 		GameConfig.volumeMusic = sliderMusicVolume.GetValue().ToInt()
 		GameConfig.volumeSFX = sliderSFXVolume.GetValue().ToInt()
+
+		GetSoundManager().sfxVolume = (0.01 * GameConfig.volumeSFX)
+		GetSoundManager().SetMusicVolume(0.01 * GameConfig.volumeMusic)
 
 		if GameConfig.soundEngine.ToLower() <> string(TGameGUIDropDownItem(dropdownSoundEngine.GetSelectedEntry()).extra).ToLower()
 			GameConfig.soundEngine = string(TGameGUIDropDownItem(dropdownSoundEngine.GetSelectedEntry()).extra)
