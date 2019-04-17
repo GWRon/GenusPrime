@@ -31,7 +31,7 @@ endrem
 
 Incbin "source/version.txt"
 Global VersionDate:String = LoadText("incbin::source/version.txt").Trim()
-Global VersionNumberString:String = "v1.0.2"
+Global VersionNumberString:String = "v1.0.3"
 Global VersionString:String = VersionNumberString + " Build ~q" + VersionDate + "~q"
 Global CopyrightString:String = "by Ronny Otto aka ~qDerron~q"
 
@@ -1889,6 +1889,12 @@ Type TGame
 				Exit
 			EndIf
 		Next
+		
+		
+		if groupSelectKeysDown and KeyManager.IsHit(KEY_A)
+			space.SelectAllPlanets(playerID)
+			KeyManager.ResetKey(KEY_A)
+		endif
 
 
 		'handle clicks / selection / attack
@@ -2259,6 +2265,7 @@ Type TSpace
 
 			'=== register event listeners
 			'to react on changes in the programmeCollection (eg. custom script finished)
+			_eventListeners :+ [ EventManager.registerListenerFunction( "Planet.SetOwner", onPlanetSetOwner ) ]
 			_eventListeners :+ [ EventManager.registerListenerFunction( "Planet.SpawnShip", onPlanetSpawnsShip ) ]
 			_eventListeners :+ [ EventManager.registerListenerFunction( "Planet.SpawnMissile", onPlanetSpawnsMissile ) ]
 			_eventListeners :+ [ EventManager.registerListenerFunction( "Ship.ArriveTarget", onShipArrivesTarget ) ]
@@ -2420,7 +2427,7 @@ Type TSpace
 
 
 	Method ScrollView:Int(dx:Int, dy:Int)
-		ScrollViewTo(Int(viewOffset.x + dx), Int(viewOffset.y + dy))
+		ScrollViewTo(dx, dy, True)
 	End Method
 
 
@@ -2437,9 +2444,14 @@ Type TSpace
 
 
 	'x and y are LOCAL not SCREEN
-	Method ScrollViewTo:Int(x:Int, y:Int)
-		viewOffset.x = MathHelper.Clamp(x, minOffsetX, maxOffsetX)
-		viewOffset.y = MathHelper.Clamp(y, minOffsetY, maxOffsetY)
+	Method ScrollViewTo:Int(x:Int, y:Int, relative:int = False)
+		if not relative
+			viewOffset.x = MathHelper.Clamp(x, minOffsetX, maxOffsetX)
+			viewOffset.y = MathHelper.Clamp(y, minOffsetY, maxOffsetY)
+		else
+			viewOffset.x = MathHelper.Clamp(viewOffset.x + x, minOffsetX, maxOffsetX)
+			viewOffset.y = MathHelper.Clamp(viewOffset.y + y, minOffsetY, maxOffsetY)
+		endif
 	End Method
 
 
@@ -2577,6 +2589,16 @@ Type TSpace
 			If rect.ContainsVec(p.position) And Not IsSelectedPlanet(p.ID)
 				AddSelectedPlanetByID(p.ID)
 			EndIf
+		Next
+		Return True
+	End Method
+
+
+	Method SelectAllPlanets:Int(ownerID:Int = -1)
+		For Local p:TPlanet = EachIn planets
+			If ownerID >= 0 And p.ownerID <> ownerID Then Continue
+
+			AddSelectedPlanetByID(p.ID)
 		Next
 		Return True
 	End Method
@@ -2784,6 +2806,22 @@ Type TSpace
 		EndIf
 
 		space.RemoveMissile(missile.ID)
+	End Function
+
+
+	Function onPlanetSetOwner:Int(triggerEvent:TEventBase)
+		Local planet:TPlanet = TPlanet(triggerEvent.GetSender())
+		If Not planet Then Return False
+		
+		'deselect a planet if it changes owner but we selected multiple
+		'planets.
+		'do not do this if only this planet was selected (might be by
+		'purpose)
+		if space.IsSelectedPlanet(planet.ID)
+			if space.selectedPlanets.length > 1
+				space.DeselectPlanet(planet.ID)
+			endif
+		endif
 	End Function
 
 
@@ -3189,6 +3227,16 @@ Type THud
 				If MouseManager.x >= space.screenArea.GetX2() - 10 Then space.ScrollView(+2, 0)
 				If MouseManager.y <= space.screenArea.GetY() + 10 Then space.ScrollView(0, -2)
 				If MouseManager.y >= space.screenArea.GetY2() - 10 And MouseManager.y <= space.screenArea.GetY2() Then space.ScrollView(0, +2)
+			EndIf
+			
+			If MouseManager.IsClicked(3) 'middle mouse button
+				local scrollBy:TVec2D = new TVec2D
+				'subtract center ("offset")
+				scrollBy.x = MouseManager.currentPos.x - (space.screenarea.GetIntX() + space.screenarea.GetW()/2)
+				scrollBy.y = MouseManager.currentPos.y - (space.screenarea.GetIntY() + space.screenarea.GetH()/2)
+				space.ScrollView(int(scrollBy.x), int(scrollBy.y))
+
+				MouseManager.ResetKey(3)
 			EndIf
 
 			If KeyManager.IsHit(KEY_SPACE)
@@ -5573,13 +5621,13 @@ Type TMessageWindow_Settings Extends TMessageWindow
 		?
 
 		Local itemHeight:Int = 0
-		For Local i:Int = 0 Until soundEngineValues.Length
-			Local item:TGUIDropDownItem = New TGameGUIDropDownItem.Create(Null, Null, soundEngineTexts[i]).SetExtra(soundEngineValues[i])
+		For Local i:Int = 0 Until soundEngineKeys.Length
+			Local item:TGUIDropDownItem = New TGameGUIDropDownItem.Create(Null, Null, soundEngineNames[i]).SetExtra(soundEngineKeys[i])
 			'item.SetValueColor(TColor.CreateGrey(50))
-			item.data.Add("value", soundEngineValues[i])
+			item.data.Add("value", soundEngineKeys[i])
 			dropdownSoundEngine.AddItem(item)
 		Next
-		dropdownSoundEngine.SetListContentHeight(10 * Len(soundEngineValues))
+		dropdownSoundEngine.SetListContentHeight(10 * Len(soundEngineKeys))
 		dropdownSoundEngine.SetSelectedEntryByPos( 0 )
 		container.AddChild(dropdownSoundEngine)
 
@@ -5695,7 +5743,6 @@ Type TMessageWindow_Settings Extends TMessageWindow
 			app.ApplySoundSettings()
 		endif
 
-		'TODO: an SoundManager weitergeben
 
 		If buttonPreset1.IsClicked()
 			buttonPreset1.mouseIsClicked = Null
