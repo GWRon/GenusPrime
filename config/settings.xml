@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?><data saved="17.04.2019 15:17">
+<?xml version="1.0" encoding="utf-8"?><data saved="22.04.2019 22:26">
 
-	<currentProfile value="Weihnachtsmann" />
+	<currentProfile value="Joulupukki" />
 	<fullscreen value="0" />
 	<renderer value="0" />
-	<screen_height value="400" />
-	<screen_width value="640" />
+	<screen_height value="600" />
+	<screen_width value="960" />
 	<sound_engine value="AUTOMATIC" />
-	<volume_music value="100" />
+	<volume_music value="85" />
 	<volume_sfx value="55" />
 </data>

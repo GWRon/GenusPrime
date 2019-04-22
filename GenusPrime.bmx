@@ -919,6 +919,11 @@ Type TScreen_InGame Extends TScreen
 			TGame.LoadGame("savegames/quicksave.xml")
 		EndIf
 
+		If KeyManager.IsHit(Key_F6) Or KeyManager.IsHit(Key_N)
+			Print "Play next"
+			GetSoundManager().PlayMusicPlaylist("default")
+		EndIf
+
 
 If DEV_MODE
 		If KeyManager.IsHit(KEY_W)
@@ -1880,12 +1885,12 @@ Type TGame
 				Exit
 			EndIf
 		Next
-		
-		
-		if groupSelectKeysDown and KeyManager.IsHit(KEY_A)
+
+
+		If groupSelectKeysDown And KeyManager.IsHit(KEY_A)
 			space.SelectAllPlanets(playerID)
 			KeyManager.ResetKey(KEY_A)
-		endif
+		EndIf
 
 
 		'handle clicks / selection / attack
@@ -2229,8 +2234,8 @@ Type TSpace
 
 	Field _shipsAlive:Int[] = New Int[0] '0 = all, 1 = of player 1 ...
 
-	Field deadShips:int[] = new Int[0]
-	Field deadMissiles:int[] = new Int[0]
+	Field deadShips:Int[] = New Int[0]
+	Field deadMissiles:Int[] = New Int[0]
 
 	Field planets:TPlanet[]
 	Field missiles:TIntMap = New TIntMap
@@ -2435,14 +2440,14 @@ Type TSpace
 
 
 	'x and y are LOCAL not SCREEN
-	Method ScrollViewTo:Int(x:Int, y:Int, relative:int = False)
-		if not relative
+	Method ScrollViewTo:Int(x:Int, y:Int, relative:Int = False)
+		If Not relative
 			viewOffset.x = MathHelper.Clamp(x, minOffsetX, maxOffsetX)
 			viewOffset.y = MathHelper.Clamp(y, minOffsetY, maxOffsetY)
-		else
+		Else
 			viewOffset.x = MathHelper.Clamp(viewOffset.x + x, minOffsetX, maxOffsetX)
 			viewOffset.y = MathHelper.Clamp(viewOffset.y + y, minOffsetY, maxOffsetY)
-		endif
+		EndIf
 	End Method
 
 
@@ -2635,12 +2640,12 @@ Type TSpace
 
 	Method RemoveShip:Int(shipID:Int)
 		Local ship:TShip = GetShip(shipID)
-		if ship and ship.alive
+		If ship And ship.alive
 			_shipsAlive[ship.ownerID] :- 1
 			_shipsAlive[0] :- 1
 			ship.alive = False
-		endif
-		
+		EndIf
+
 		deadShips :+ [shipID]
 
 		'Return ships.Remove(shipID)
@@ -2659,10 +2664,10 @@ Type TSpace
 
 
 	Method RemoveMissile:Int(missileID:Int)
-		local missile:TMissile = GetMissile(missileID)
+		Local missile:TMissile = GetMissile(missileID)
 
 		deadMissiles :+ [missileID]
-		if missile then missile.alive = False
+		If missile Then missile.alive = False
 
 		'Return missiles.Remove(missileID)
 		Return True
@@ -2700,17 +2705,17 @@ Type TSpace
 		For Local ship:TShip = EachIn ships.Values()
 			ship.Update()
 		Next
-		
 
-		For local id:int = EachIn deadShips
+
+		For Local id:Int = EachIn deadShips
 			ships.Remove(id)
 		Next
-		For local id:int = EachIn deadMissiles
+		For Local id:Int = EachIn deadMissiles
 			missiles.Remove(id)
 		Next
-		deadShips = new Int[0]
-		deadMissiles = new Int[0]
-		
+		deadShips = New Int[0]
+		deadMissiles = New Int[0]
+
 
 		'ACHTUNG: eventuell Updates "randomisieren", damit jeder Planet
 		'         mal zuerst dran kommt (angegriffen wird, produziert,...)
@@ -2803,16 +2808,16 @@ Type TSpace
 	Function onPlanetSetOwner:Int(triggerEvent:TEventBase)
 		Local planet:TPlanet = TPlanet(triggerEvent.GetSender())
 		If Not planet Then Return False
-		
+
 		'deselect a planet if it changes owner but we selected multiple
 		'planets.
 		'do not do this if only this planet was selected (might be by
 		'purpose)
-		if space.IsSelectedPlanet(planet.ID)
-			if space.selectedPlanets.length > 1
+		If space.IsSelectedPlanet(planet.ID)
+			If space.selectedPlanets.length > 1
 				space.DeselectPlanet(planet.ID)
-			endif
-		endif
+			EndIf
+		EndIf
 	End Function
 
 
@@ -3221,26 +3226,26 @@ Type THud
 			EndIf
 
 			 'middle mouse button down? drag the map
-			If MouseManager.IsDown(3) and MouseManager.GetDownTime(3) > 100 
-				if not spacePositionOnMouseDown 
+			If MouseManager.IsDown(3) And MouseManager.GetDownTime(3) > 100
+				If Not spacePositionOnMouseDown
 					spacePositionOnMouseDown = space.viewOffset.Copy()
-				endif
+				EndIf
 				'use negated positions as we "drag"
-				local moved:TVec2D = MouseManager.GetHitPosition(3).Copy().AddXY(MouseManager.GetPosition().x * -1, MouseManager.GetPosition().y * -1)
-				space.ScrollViewTo(int(spacePositionOnMouseDown.x + moved.x), int(spacePositionOnMouseDown.y + moved.y))
-			elseif spacePositionOnMouseDown
-				spacePositionOnMouseDown = null
+				Local moved:TVec2D = MouseManager.GetHitPosition(3).Copy().AddXY(MouseManager.GetPosition().x * -1, MouseManager.GetPosition().y * -1)
+				space.ScrollViewTo(Int(spacePositionOnMouseDown.x + moved.x), Int(spacePositionOnMouseDown.y + moved.y))
+			ElseIf spacePositionOnMouseDown
+				spacePositionOnMouseDown = Null
 				'avoid registering as clicked (if mouse moved a bit)
-				if MouseManager.GetHitPosition(3).DistanceTo( MouseManager.GetPosition() ) > 5
+				If MouseManager.GetHitPosition(3).DistanceTo( MouseManager.GetPosition() ) > 5
 					MouseManager.ResetKey(3)
-				endif
+				EndIf
 			'middle mouse button clicked? scroll the map
 			ElseIf MouseManager.IsClicked(3)
-				local scrollBy:TVec2D = new TVec2D
+				Local scrollBy:TVec2D = New TVec2D
 				'subtract center ("offset")
 				scrollBy.x = MouseManager.currentPos.x - (space.screenarea.GetIntX() + space.screenarea.GetW()/2)
 				scrollBy.y = MouseManager.currentPos.y - (space.screenarea.GetIntY() + space.screenarea.GetH()/2)
-				space.ScrollView(int(scrollBy.x), int(scrollBy.y))
+				space.ScrollView(Int(scrollBy.x), Int(scrollBy.y))
 
 				MouseManager.ResetKey(3)
 			EndIf
@@ -3678,7 +3683,7 @@ Type TSpacecraft
 	Field ownerID:Int
 	Field sourcePlanetID:Int = -1
 	Field targetPlanetID:Int = -1
-	Field alive:int = True
+	Field alive:Int = True
 
 	'to avoid flickering on windows
 	Field lastPosition:TVec2D
@@ -5424,9 +5429,9 @@ Type TMessageWindow_GameStats Extends TMessageWindow
 		EndIf
 
 		If curveDataID = 2
-			f.Draw("Planets owned:", col3, row1, color2); f.DrawBlock(Int(100*gs.planetsOwned), col4, row1, 30, 6, ALIGN_RIGHT_CENTER)
+			f.Draw("Planets owned:", col3, row1, color2); f.DrawBlock(gs.planetsOwned, col4, row1, 30, 6, ALIGN_RIGHT_CENTER)
 		Else
-			f.Draw("Planets owned:", col3, row1, color1); f.DrawBlock(Int(100*gs.planetsOwned), col4, row1, 30, 6, ALIGN_RIGHT_CENTER)
+			f.Draw("Planets owned:", col3, row1, color1); f.DrawBlock(gs.planetsOwned, col4, row1, 30, 6, ALIGN_RIGHT_CENTER)
 		EndIf
 		If curveDataID = 3
 			f.Draw("  ~q  |color="+color2.ToRGBString(",")+"|won|/color|/lost:", col3, row2); f.DrawBlock(gs.planetsWon+"/"+gs.planetsLost, col4, row2, 30, 6, ALIGN_RIGHT_CENTER)
@@ -5684,12 +5689,12 @@ Type TMessageWindow_Settings Extends TMessageWindow
 		sliderMusicVolume.SetValue(GameConfig.volumeMusic)
 		sliderSFXVolume.SetValue(GameConfig.volumeSFX)
 
-		local i:int = 0
-		For local entry:TGameGUIDropDownItem = EachIn dropdownSoundEngine.GetEntries()
-			if string(entry.extra).ToLower() = GameConfig.soundEngine.ToLower()
+		Local i:Int = 0
+		For Local entry:TGameGUIDropDownItem = EachIn dropdownSoundEngine.GetEntries()
+			If String(entry.extra).ToLower() = GameConfig.soundEngine.ToLower()
 				dropdownSoundEngine.SetSelectedEntryByPos(i)
-				exit
-			endif
+				Exit
+			EndIf
 			i :+ 1
 		Next
 
@@ -5737,10 +5742,10 @@ Type TMessageWindow_Settings Extends TMessageWindow
 		GetSoundManager().sfxVolume = (0.01 * GameConfig.volumeSFX)
 		GetSoundManager().SetMusicVolume(0.01 * GameConfig.volumeMusic)
 
-		if GameConfig.soundEngine.ToLower() <> string(TGameGUIDropDownItem(dropdownSoundEngine.GetSelectedEntry()).extra).ToLower()
-			GameConfig.soundEngine = string(TGameGUIDropDownItem(dropdownSoundEngine.GetSelectedEntry()).extra)
+		If GameConfig.soundEngine.ToLower() <> String(TGameGUIDropDownItem(dropdownSoundEngine.GetSelectedEntry()).extra).ToLower()
+			GameConfig.soundEngine = String(TGameGUIDropDownItem(dropdownSoundEngine.GetSelectedEntry()).extra)
 			app.ApplySoundSettings()
-		endif
+		EndIf
 
 
 		If buttonPreset1.IsClicked()
