@@ -2634,7 +2634,8 @@ Type TSpace
 		_shipsAlive[ship.ownerID] :+ 1
 		_shipsAlive[0] :+ 1
 
-		Return ships.Insert(ship.ID, ship)
+		ships.Insert(ship.ID, ship)
+		Return True
 	End Method
 
 
@@ -2659,7 +2660,9 @@ Type TSpace
 
 
 	Method AddMissile:Int(missile:TMissile)
-		Return missiles.Insert(missile.ID, missile)
+		missiles.Insert(missile.ID, missile)
+		
+		Return True
 	End Method
 
 

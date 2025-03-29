@@ -135,7 +135,7 @@
 			</description>
 
 			<events>
-				<event type="support" game_time="30" notify_enabled="1" notify_delay="0" player="3" amount="60" >
+				<event type="support" game_time="30" notify_enabled="1" notify_delay="0" player="3" amount="30" >
 					<title>
 						<en>Support</en>
 					</title>
@@ -144,7 +144,7 @@
 					</text>
 				</event>
 
-				<event type="support" game_time="45" notify_enabled="1" notify_delay="0" player="2" amount="70" >
+				<event type="support" game_time="45" notify_enabled="1" notify_delay="0" player="2" amount="50" >
 					<title>
 						<en>Support</en>
 					</title>
@@ -153,7 +153,7 @@
 					</text>
 				</event>
 
-				<event type="support" game_time="150" notify_enabled="1" notify_delay="0" player="3" amount="90" >
+				<event type="support" game_time="150" notify_enabled="1" notify_delay="0" player="3" amount="70" >
 					<title>
 						<en>Support</en>
 					</title>
@@ -164,7 +164,7 @@
 			</events>
 
 			<events>
-				<event type="support" game_time="150" notify_enabled="1" notify_delay="0" player="2" amount="100" >
+				<event type="support" game_time="150" notify_enabled="1" notify_delay="0" player="2" amount="75" >
 					<title>
 						<en>Support</en>
 					</title>
@@ -182,10 +182,10 @@
 				<player id="3" race="4" control="AI"    difficulty="100" />
 			</players>
 			<planets>
-				<planet                   owner="1" population="15" missiles="0"  missilesLimit="2" />
-				<planet                   owner="2" population="10" missiles="0"  missilesLimit="1" />
+				<planet                   owner="1" population="18" missiles="0"  missilesLimit="4" />
+				<planet                   owner="2" population="9" missiles="0"  missilesLimit="1" />
 				<planet                   owner="2" population="3"  missiles="0"  missilesLimit="1" />
-				<planet                   owner="2" population="4"  missiles="0"  missilesLimit="1" />
+				<planet                   owner="2" population="3"  missiles="0"  missilesLimit="1" />
 				<planet                   owner="3" population="9"  missiles="0"  missilesLimit="3" />
 				<planet                   owner="3" population="2"  missiles="0"  missilesLimit="3" />
 
@@ -245,7 +245,7 @@
 			<planets>
 				<planet                   owner="1" population="20" missiles="0"  missilesLimit="0" />
 				<planet                   owner="1" population="2"  missiles="0"  missilesLimit="4" />
-				<planet                   owner="2" population="15"  missiles="0"  missilesLimit="3" />
+				<planet                   owner="2" population="15" missiles="0"  missilesLimit="3" />
 				<planet                   owner="2" population="7"  missiles="0"  missilesLimit="3" />
 				<planet                   owner="2" population="2"  missiles="5"  missilesLimit="10" />
 

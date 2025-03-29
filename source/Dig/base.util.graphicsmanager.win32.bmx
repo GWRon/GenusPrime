@@ -42,7 +42,7 @@ Function SetRendererWin32:TGraphics(_g:TGraphics, renderer:Int var, realWidth:In
 	driversID  = [3,            2,           1,           0]
 	driversName= ["DirectX 11", "DirectX 9", "DirectX 7", "OpenGL"]
 	?bmxng
-	drivers[0] = GLMax2DDriver()
+	drivers[0] = GL2Max2DDriver()
 	driversID  = [0]
 	driversName= ["OpenGL"]
 	?
